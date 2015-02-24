@@ -85,9 +85,6 @@ class MyExporter(bpy.types.Operator, ExportHelper):
          self.obj_name = obj_name;
          print(obj_name);
 
-# Define a function to create the menu option for exporting.
-def create_menu(self, context):
-   self.layout.operator(MyExporter.bl_idname,text="test (.tst)");
 
 # Define the Blender required registration functions.
 def register():
@@ -95,15 +92,12 @@ def register():
    Handles the registration of the Blender Addon.
    """
    bpy.utils.register_module(__name__);
-   bpy.types.INFO_MT_file_export.append(create_menu);
 
 def unregister():
    """
    Handles the unregistering of this Blender Addon.
    """
    bpy.utils.unregister_module(__name__);
-   bpy.types.INFO_MT_file_export.remove(create_menu);
-
 
 # Handle running the script from Blender's text editor.
 if (__name__ == "__main__"):
