@@ -53,8 +53,9 @@ class MyExporter(bpy.types.Operator, ExportHelper):
                   print("face index ", face.index)
                   print("normal ", face.normal)
                   for vert in verts_in_face:
-                      print("vertex coords", item.data.vertices[vert].co)
+                      print("vertex coords ", item.data.vertices[vert].co)
                   
+
 
    def parse_command_line_options(self):
       obj_name = "";
@@ -67,20 +68,12 @@ class MyExporter(bpy.types.Operator, ExportHelper):
       argsStartPos = sys.argv.index("--");
       argsStartPos += 1;
       myArgs = sys.argv[argsStartPos:];
-
-      try:
-         opts, args = getopt.getopt(myArgs, 'hm:', ["help", "model-file="]);
-      except getOpt.GetoptError:
-         print("Opt Error.");
-         return;
-
+      opts, args = getopt.getopt(myArgs, 'hm:', ["help", "model-file="]);
+      
       for opt, arg in opts:
-         if (opt in ("-h", "--help")):
-            print("Run this as the following blender command.");
-            print("\tblender <blend file> --background --python <script file> -- -m <Object name>");
-         elif (opt == "-m"):
-            obj_name = arg;
-
+          if (opt == "-m"):
+            obj_name = arg;       
+         
       if (obj_name != ""):
          self.obj_name = obj_name;
          print(obj_name);
@@ -88,16 +81,7 @@ class MyExporter(bpy.types.Operator, ExportHelper):
 
 # Define the Blender required registration functions.
 def register():
-   """
-   Handles the registration of the Blender Addon.
-   """
    bpy.utils.register_module(__name__);
-
-def unregister():
-   """
-   Handles the unregistering of this Blender Addon.
-   """
-   bpy.utils.unregister_module(__name__);
 
 # Handle running the script from Blender's text editor.
 if (__name__ == "__main__"):
